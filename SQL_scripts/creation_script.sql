@@ -45,10 +45,12 @@ CREATE TABLE `standings` (
 );
 
 CREATE TABLE `matches` (
-	`match_id` INT NOT NULL,
+	`match_id` INT NOT NULL UNIQUE AUTO_INCREMENT,
+    `match_date` DATE NOT NULL,
     `tournament_id` INT NOT NULL,
-    `competitor_id` INT NOT NULL,
-    `win_status` BOOLEAN,
+    `competitor1_id` INT NOT NULL,
+    `competitor2_id` INT NOT NULL,
+    `match_winner_id` INT,
     CONSTRAINT `PK_matches` PRIMARY KEY (`match_id`)
 );
 
@@ -69,9 +71,12 @@ ADD FOREIGN KEY (`tournament_id`) REFERENCES `tournaments` (`tournament_id`);
 
 ALTER TABLE `matches`
 ADD FOREIGN KEY (`tournament_id`) REFERENCES `tournaments` (`tournament_id`);
-
 ALTER TABLE `matches`
-ADD FOREIGN KEY (`competitor_id`) REFERENCES `users` (`user_id`);
+ADD FOREIGN KEY (`competitor1_id`) REFERENCES `users` (`user_id`);
+ALTER TABLE `matches`
+ADD FOREIGN KEY (`competitor2_id`) REFERENCES `users` (`user_id`);
+ALTER TABLE `matches`
+ADD FOREIGN KEY (`match_winner_id`) REFERENCES `users` (`user_id`);
 
 TRUNCATE TABLE `users`;
 INSERT INTO `users` (`name`, `user_type_id`)
@@ -80,10 +85,7 @@ INSERT INTO `users` (`name`, `user_type_id`)
 VALUES ('Tommy', 2);
 INSERT INTO `users` (`name`, `user_type_id`)
 VALUES ('Paul', 2);
-INSERT INTO `users` (`name`, `user_type_id`)
-VALUES ('Janet', 2);
-INSERT INTO `users` (`name`, `user_type_id`)
-VALUES ('Sarah', 2);
+
 
 TRUNCATE TABLE `user_types`;
 INSERT INTO `user_types` (`user_type`)
@@ -94,3 +96,19 @@ VALUES ('tournament member');
 TRUNCATE TABLE `tournaments`;
 INSERT INTO `tournaments` (`tournament_activity`, `tournament_type_id`, `tournament_admin_id`, `completed_status`, `start_date`, `end_date`, `standings_id`)
 VALUES ('chess', 1, 1, 1, '2021-05-15', '2021-05-20', 1);
+
+TRUNCATE TABLE `matches`;
+INSERT INTO `matches` (`tournament_id`, `match_date`, `competitor1_id`, `competitor2_id`, `match_winner_id`)
+VALUES (1, '2021-05-15', 1, 3, 3);
+INSERT INTO `matches` (`tournament_id`, `match_date`, `competitor1_id`, `competitor2_id`, `match_winner_id`)
+VALUES (1, '2021-05-18', 1, 2, 2);
+INSERT INTO `matches` (`tournament_id`, `match_date`, `competitor1_id`, `competitor2_id`, `match_winner_id`)
+VALUES (1, '2021-05-20', 3, 2, 3);
+
+TRUNCATE TABLE `standings`;
+INSERT INTO `standings` (`tournament_id`, `user_id`, `points`)
+VALUES (1, 1, 0);
+INSERT INTO `standings` (`tournament_id`, `user_id`, `points`)
+VALUES (1, 2, 3);
+INSERT INTO `standings` (`tournament_id`, `user_id`, `points`)
+VALUES (1, 3, 6);
