@@ -12,6 +12,12 @@ CREATE TABLE `users` (
     `user_type_id` INT NOT NULL,
     CONSTRAINT `PK_users` PRIMARY KEY (`user_id`)
 );
+
+CREATE TABLE `user_types` (
+	`user_type_id` INT NOT NULL UNIQUE AUTO_INCREMENT,
+    `user_type` VARCHAR(45),
+	CONSTRAINT `PK_user_types` PRIMARY KEY (`user_type_id`)
+);
     
 CREATE TABLE `tournaments` (
 	`tournament_id` INT NOT NULL UNIQUE AUTO_INCREMENT,
@@ -22,6 +28,12 @@ CREATE TABLE `tournaments` (
     `end_date` DATE,
 	`standings_id` INT NOT NULL, -- standings can be used to get winner
     CONSTRAINT `PK_tournaments` PRIMARY KEY (`tournament_id`)
+);
+
+CREATE TABLE `tournament_types` (
+	`tournament_type_id` INT NOT NULL UNIQUE AUTO_INCREMENT,
+    `tournament_type` VARCHAR(45),
+    CONSTRAINT `PK_tournament_types` PRIMARY KEY (`tournament_type_id`)
 );
 
 CREATE TABLE `standings` (
@@ -39,3 +51,9 @@ CREATE TABLE `matches` (
     `win_status` BOOLEAN,
     CONSTRAINT `PK_matches` PRIMARY KEY (`match_id`)
 );
+
+ALTER TABLE `users`
+ADD FOREIGN KEY (`user_type_id`) REFERENCES `user_types` (`user_type_id`);
+
+ALTER TABLE `tournaments`
+ADD FOREIGN KEY (`tournament_type_id`) REFERENCES `tournament_types` (`tournament_type_id`);
