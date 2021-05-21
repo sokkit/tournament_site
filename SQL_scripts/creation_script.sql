@@ -7,7 +7,7 @@ SET FOREIGN_KEY_CHECKS=0;
 
 CREATE TABLE `users` (
 	`user_id` INT NOT NULL UNIQUE AUTO_INCREMENT,
-    `name` VARCHAR(45) NOT NULL,
+    `nick` VARCHAR(45) NOT NULL,
     `user_type_id` INT NOT NULL,
     CONSTRAINT `PK_users` PRIMARY KEY (`user_id`)
 );
@@ -50,6 +50,7 @@ CREATE TABLE `matches` (
     `tournament_id` INT NOT NULL,
     `competitor1_id` INT NOT NULL,
     `competitor2_id` INT NOT NULL,
+    `outcome` VARCHAR(20),
     `match_winner_id` INT,
     CONSTRAINT `PK_matches` PRIMARY KEY (`match_id`)
 );
@@ -79,11 +80,11 @@ ALTER TABLE `matches`
 ADD FOREIGN KEY (`match_winner_id`) REFERENCES `users` (`user_id`);
 
 TRUNCATE TABLE `users`;
-INSERT INTO `users` (`name`, `user_type_id`)
+INSERT INTO `users` (`nick`, `user_type_id`)
 VALUES ('Saul', 1);
-INSERT INTO `users` (`name`, `user_type_id`)
+INSERT INTO `users` (`nick`, `user_type_id`)
 VALUES ('Tommy', 2);
-INSERT INTO `users` (`name`, `user_type_id`)
+INSERT INTO `users` (`nick`, `user_type_id`)
 VALUES ('Paul', 2);
 
 
@@ -98,17 +99,17 @@ INSERT INTO `tournaments` (`tournament_activity`, `tournament_type_id`, `tournam
 VALUES ('chess', 1, 1, 1, '2021-05-15', '2021-05-20', 1);
 
 TRUNCATE TABLE `matches`;
-INSERT INTO `matches` (`tournament_id`, `match_date`, `competitor1_id`, `competitor2_id`, `match_winner_id`)
+INSERT INTO `matches` (`tournament_id`, `match_date`, `competitor1_id`, `competitor2_id`, `outcome`, `match_winner_id`)
 VALUES (1, '2021-05-15', 1, 3, 3);
-INSERT INTO `matches` (`tournament_id`, `match_date`, `competitor1_id`, `competitor2_id`, `match_winner_id`)
-VALUES (1, '2021-05-18', 1, 2, 2);
-INSERT INTO `matches` (`tournament_id`, `match_date`, `competitor1_id`, `competitor2_id`, `match_winner_id`)
+INSERT INTO `matches` (`tournament_id`, `match_date`, `competitor1_id`, `competitor2_id`,`outcome`, `match_winner_id`)
+VALUES (1, '2021-05-18', 1, 2, 0);
+INSERT INTO `matches` (`tournament_id`, `match_date`, `competitor1_id`, `competitor2_id`,`outcome`, `match_winner_id`)
 VALUES (1, '2021-05-20', 3, 2, 3);
 
 TRUNCATE TABLE `standings`;
 INSERT INTO `standings` (`tournament_id`, `user_id`, `points`)
-VALUES (1, 1, 0);
+VALUES (1, 1, 1);
 INSERT INTO `standings` (`tournament_id`, `user_id`, `points`)
-VALUES (1, 2, 3);
+VALUES (1, 2, 1);
 INSERT INTO `standings` (`tournament_id`, `user_id`, `points`)
 VALUES (1, 3, 6);
