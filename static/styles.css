@@ -4,5 +4,28 @@ body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background: rgb(148,228,227);
-background: linear-gradient(90deg, rgba(148,228,227,1) 0%, rgba(222,231,103,1) 100%, rgba(148,228,227,1) 100%); 
+    background: linear-gradient(90deg, rgba(148,228,227,1) 0%,
+    rgba(222,231,103,1) 100%, rgba(148,228,227,1) 100%);
+}
+
+#mainTitle {
+  text-decoration: none;
+  max-width: 300px;
+  margin: auto;
+}
+
+#mainTitle h1 {
+  padding: .2em;
+  color: #2f2e30;
+  font-family: "Lucida Console", "Courier New", monospace;
+  font-weight: bold;
+  font-size: 5em;
+
+  text-align: center;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
