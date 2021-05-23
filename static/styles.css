@@ -20,7 +20,6 @@ body {
   font-family: "Lucida Console", "Courier New", monospace;
   font-weight: bold;
   font-size: 5em;
-
   text-align: center;
 }
 
@@ -28,4 +27,34 @@ footer {
   position: fixed;
   bottom: 0;
   width: 100%;
+}
+
+#footerSeparator {
+  border: 0;
+	border-top: 5px solid #323036;
+  opacity: 20%;
+  width: 70%
+}
+
+footer a {
+  color: inherit;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: none;
+  color: #5d5c5e;
+}
+
+footer img {
+  max-width: 1.2em;
+  height: auto;
+}
+
+#footerLinks {
+  max-width: 1000px;
+  width: 100%;
+  margin: auto;
+  text-align: center;
+  padding-bottom: 1em;
 }
