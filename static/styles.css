@@ -1,3 +1,4 @@
+/* Template theming */
 body {
     height: 100%;
     margin: 0;
@@ -6,6 +7,7 @@ body {
     background: rgb(148,228,227);
     background: linear-gradient(90deg, rgba(148,228,227,1) 0%,
     rgba(222,231,103,1) 100%, rgba(148,228,227,1) 100%);
+    font-family: "Lucida Console", "Courier New";
 }
 
 #mainTitle {
@@ -57,4 +59,17 @@ footer img {
   margin: auto;
   text-align: center;
   padding-bottom: 1em;
+}
+
+/* Tournament Page */
+#tournamentTitle {
+  text-align: center;
+  font-family: "Lucida Console", "Courier New";
+  font-weight: bold;
+  color: #451203;
+}
+
+.standingsMatches {
+  text-align: center;
+  color: #451203;
 }
