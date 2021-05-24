@@ -50,7 +50,7 @@ CREATE TABLE `matches` (
     `tournament_id` INT NOT NULL,
     `competitor1_id` INT NOT NULL,
     `competitor2_id` INT NOT NULL,
-    `outcome` VARCHAR(20),
+    `state` VARCHAR(20),
     `match_winner_id` INT,
     CONSTRAINT `PK_matches` PRIMARY KEY (`match_id`)
 );
@@ -99,12 +99,12 @@ INSERT INTO `tournaments` (`tournament_activity`, `tournament_type_id`, `tournam
 VALUES ('chess', 1, 1, 1, '2021-05-15', '2021-05-20', 1);
 
 TRUNCATE TABLE `matches`;
-INSERT INTO `matches` (`tournament_id`, `match_date`, `competitor1_id`, `competitor2_id`, `outcome`, `match_winner_id`)
-VALUES (1, '2021-05-15', 1, 3, 3);
-INSERT INTO `matches` (`tournament_id`, `match_date`, `competitor1_id`, `competitor2_id`,`outcome`, `match_winner_id`)
-VALUES (1, '2021-05-18', 1, 2, 0);
-INSERT INTO `matches` (`tournament_id`, `match_date`, `competitor1_id`, `competitor2_id`,`outcome`, `match_winner_id`)
-VALUES (1, '2021-05-20', 3, 2, 3);
+INSERT INTO `matches` (`tournament_id`, `match_date`, `competitor1_id`, `competitor2_id`, `state`, `match_winner_id`)
+VALUES (1, '2021-05-15', 1, 3, 'complete', 3);
+INSERT INTO `matches` (`tournament_id`, `match_date`, `competitor1_id`, `competitor2_id`, `state`, `match_winner_id`)
+VALUES (1, '2021-05-18', 1, 2, 'complete', null);
+INSERT INTO `matches` (`tournament_id`, `match_date`, `competitor1_id`, `competitor2_id`, `state`, `match_winner_id`)
+VALUES (1, '2021-05-20', 3, 2, 'complete', 3);
 
 TRUNCATE TABLE `standings`;
 INSERT INTO `standings` (`tournament_id`, `user_id`, `points`)
@@ -113,3 +113,21 @@ INSERT INTO `standings` (`tournament_id`, `user_id`, `points`)
 VALUES (1, 2, 1);
 INSERT INTO `standings` (`tournament_id`, `user_id`, `points`)
 VALUES (1, 3, 6);
+
+-- STORED PROCEDURES
+-- stored procedure to view standings taking tournament id as input
+DROP PROCEDURE IF EXISTS getStandings;
+DELIMITER //
+CREATE PROCEDURE getStandings(
+	IN tournamentIdIn INT
+)
+BEGIN
+	SELECT tournaments.tournament_activity, users.nick, standings.points
+	FROM standings
+	JOIN tournaments ON
+	tournaments.tournament_id = standings.tournament_id
+	JOIN users ON
+	users.user_id = standings.user_id
+    WHERE tournaments.tournament_id = tournamentIdIn;
+END //
+DELIMITER ;
