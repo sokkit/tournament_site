@@ -122,12 +122,13 @@ CREATE PROCEDURE getStandings(
 	IN tournamentIdIn INT
 )
 BEGIN
-	SELECT tournaments.tournament_activity, users.nick, standings.points
+	SELECT users.nick, standings.points
 	FROM standings
 	JOIN tournaments ON
 	tournaments.tournament_id = standings.tournament_id
 	JOIN users ON
 	users.user_id = standings.user_id
-    WHERE tournaments.tournament_id = tournamentIdIn;
+    WHERE tournaments.tournament_id = tournamentIdIn
+    ORDER BY standings.points DESC;
 END //
 DELIMITER ;
