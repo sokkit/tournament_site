@@ -33,7 +33,7 @@ DELIMITER ;
 CALL getStandings(1);
 
 -- view matches
-SELECT matches.match_id, matches.match_date, tournaments.tournament_activity, users.nick as `player one`, u2.nick as `player two`, COALESCE(u3.nick, 'draw') as `winner`, matches.state
+SELECT matches.match_id, CONCAT(DAY(matches.match_date),'th ', MONTHNAME(matches.match_date), ' ', YEAR(matches.match_date)), tournaments.tournament_activity, users.nick as `player one`, u2.nick as `player two`, COALESCE(u3.nick, 'draw') as `winner`, matches.state
 FROM matches
 JOIN tournaments ON
 tournaments.tournament_id = matches.tournament_id

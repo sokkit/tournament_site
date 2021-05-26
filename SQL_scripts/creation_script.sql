@@ -123,7 +123,7 @@ CREATE PROCEDURE getStandings(
 	IN tournamentIdIn INT
 )
 BEGIN
-	SELECT users.nick, standings.points
+	SELECT users.user_id, users.nick, standings.points
 	FROM standings
 	JOIN tournaments ON
 	tournaments.tournament_id = standings.tournament_id
@@ -141,7 +141,8 @@ CREATE PROCEDURE getMatches (
 	IN tournamentIdIn INT
 )
 BEGIN
-	SELECT matches.match_id, matches.match_date, users.nick as `player one`, u2.nick as `player two`, COALESCE(u3.nick, 'draw') as `winner`, matches.state
+	SELECT matches.match_id, CONCAT(DAY(matches.match_date),'th ', MONTHNAME(matches.match_date), ' ', YEAR(matches.match_date)), 
+    users.nick as `player one`, u2.nick as `player two`, COALESCE(u3.nick, 'draw') as `winner`, matches.state
 	FROM matches
 	JOIN tournaments ON
 	tournaments.tournament_id = matches.tournament_id
