@@ -17,6 +17,8 @@ def tournament():
         try:
             # IDEA: GET TOURNAMENT NAME
             cur = db.cursor()
+            cur.execute("SELECT tournament_activity FROM tournaments WHERE tournament_id = 1")
+            tourName = cur.fetchall()
             # Get standings data
             cur.callproc('getStandings', [1])
             iterator = cur.stored_results()
@@ -29,7 +31,7 @@ def tournament():
                 matches = result.fetchall()
         except Exception as e:
             print("There was an error: ", e)
-        return render_template('tournament.html', standings = standings, matches = matches)
+        return render_template('tournament.html', standings = standings, matches = matches, tourName = tourName)
 
 
 if __name__ == "__main__":
