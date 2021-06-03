@@ -10,7 +10,7 @@ $(document).ready(function(){
     var winner = matchAsArray[matchAsArray.length-2];
     console.log(winner);
     if (winner == "draw") {
-      var newString = matchAsString.replace("draw won", "It was a draw.");
+      var newString = matchAsString.replace("draw won!", "It was a draw.");
       $(this).html(newString);
     }
   });
