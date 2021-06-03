@@ -8,11 +8,28 @@ $(document).ready(function(){
     var matchAsString = $(this).text()
     var matchAsArray = $(this).text().split(" ");
     var winner = matchAsArray[matchAsArray.length-2];
-    console.log(winner);
     if (winner == "draw") {
       var newString = matchAsString.replace("draw won!", "It was a draw.");
       $(this).html(newString);
     }
   });
+
+  //Insert place number in standings table
+  var i = 1;
+  var t = document.getElementById('standingsInfo');
+  var tSize = $('#standingsInfo tr').length;
+  $("#standingsInfo tr").each(function() {
+    var place = $(t.rows[i].cells[0]).text();
+    var points = $(t.rows[i].cells[2]).text();
+    $(t.rows[i].cells[0]).html(i);
+    //if players are on equal points
+    if (points == $(t.rows[i-1].cells[2]).text()) {
+      $(t.rows[i].cells[0]).html(i-1);
+    }
+    if (i < tSize-1) {
+      i++;
+    }
+  });
+
 
 });
