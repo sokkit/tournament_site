@@ -13,6 +13,8 @@ $(document).ready(function(){
       $(this).html(newString);
     }
   });
+  // make element visible after js complete
+  $(".matchInfo").css("visibility", "visible");
 
   //Insert place number in standings table
   var i = 1;
@@ -30,6 +32,7 @@ $(document).ready(function(){
       i++;
     }
   });
-
+  // make element visible after js complete
+  $("#standingsInfo").css("visibility", "visible");
 
 });

@@ -73,3 +73,13 @@ footer img {
   text-align: center;
   color: #451203;
 }
+
+#standingsInfo {
+  /* hidden until js is complete */
+  visibility: hidden;
+}
+
+.matchInfo {
+  /* hidden until js is complete */
+  visibility: hidden;
+}
